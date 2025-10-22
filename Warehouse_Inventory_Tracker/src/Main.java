@@ -1,18 +1,19 @@
 import java.util.Scanner;
 
-public class Main {
-    public static void main(String[] args) {
+public class Main 
+{
+    public static void main(String[] args) 
+    {
         Scanner sc = new Scanner(System.in);
 
-        // Set up observer and warehouse
         StockObserver alertService = new StockAlertService();
         Warehouse warehouse = new Warehouse(alertService);
 
-        // Load from file on startup
         warehouse.loadFromFile("inventory.txt");
 
         int choice;
-        do {
+        do 
+        {
             System.out.println("\n--- Warehouse Inventory Menu ---");
             System.out.println("1. Add Product");
             System.out.println("2. Receive Shipment");
@@ -21,17 +22,19 @@ public class Main {
             System.out.println("5. Exit");
             System.out.print("Enter your choice: ");
             
-            while (!sc.hasNextInt()) { // validation
+            while (!sc.hasNextInt()) 
+            { 
                 System.out.println("Please enter a valid numeric choice!");
-                sc.next(); // Skip invalid input
+                sc.next(); 
             }
 
             choice = sc.nextInt();
-            switch (choice) {
+            switch (choice) 
+            {
                 case 1:
                     System.out.print("Enter Product ID: ");
                     int id = sc.nextInt();
-                    sc.nextLine(); // consume leftover newline
+                    sc.nextLine(); 
                     
                     System.out.print("Enter Product Name: ");
                     String name = sc.nextLine();
@@ -78,7 +81,8 @@ public class Main {
                 default:
                     System.out.println("Invalid choice! Try again.");
             }
-        } while (choice != 5);
+        } 
+        while (choice != 5);
 
         sc.close();
     }
