@@ -1,18 +1,17 @@
 import java.util.Scanner;
 
 public class Main {
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        // ✅ Step 1: Create Observer (Alert Service)
+        // Set up observer and warehouse
         StockObserver alertService = new StockAlertService();
-
-        // ✅ Step 2: Pass observer to Warehouse
         Warehouse warehouse = new Warehouse(alertService);
 
-        int choice;
+        // Load from file on startup
+        warehouse.loadFromFile("inventory.txt");
 
+        int choice;
         do {
             System.out.println("\n--- Warehouse Inventory Menu ---");
             System.out.println("1. Add Product");
@@ -21,20 +20,28 @@ public class Main {
             System.out.println("4. Display All Products");
             System.out.println("5. Exit");
             System.out.print("Enter your choice: ");
+            
+            while (!sc.hasNextInt()) { // validation
+                System.out.println("Please enter a valid numeric choice!");
+                sc.next(); // Skip invalid input
+            }
 
             choice = sc.nextInt();
             switch (choice) {
                 case 1:
                     System.out.print("Enter Product ID: ");
                     int id = sc.nextInt();
-                    sc.nextLine(); // to consume leftover newline
+                    sc.nextLine(); // consume leftover newline
+                    
                     System.out.print("Enter Product Name: ");
                     String name = sc.nextLine();
+                    
                     System.out.print("Enter Initial Quantity: ");
                     int qty = sc.nextInt();
+                    
                     System.out.print("Enter Minimum Quantity (Threshold): ");
                     int minQty = sc.nextInt();
-
+                    
                     Product p = new Product(id, name, qty, minQty);
                     warehouse.add_Product(p);
                     break;
@@ -42,16 +49,20 @@ public class Main {
                 case 2:
                     System.out.print("Enter Product ID: ");
                     int sId = sc.nextInt();
+                    
                     System.out.print("Enter Quantity to Add: ");
                     int addQty = sc.nextInt();
+                    
                     warehouse.receive_Shipment(sId, addQty);
                     break;
 
                 case 3:
                     System.out.print("Enter Product ID: ");
                     int oId = sc.nextInt();
+                    
                     System.out.print("Enter Quantity to Remove: ");
                     int removeQty = sc.nextInt();
+                    
                     warehouse.fulfill_Order(oId, removeQty);
                     break;
 
@@ -60,7 +71,8 @@ public class Main {
                     break;
 
                 case 5:
-                    System.out.println("Exiting system...");
+                    System.out.println("Saving inventory and exiting...");
+                    warehouse.saveToFile("inventory.txt");
                     break;
 
                 default:
