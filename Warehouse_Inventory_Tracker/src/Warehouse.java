@@ -37,7 +37,7 @@ public class Warehouse
         if (inventory.containsKey(pId)) 
         {
             Product p = inventory.get(pId);
-            p.setQuantity(p.getQuantity() + quantity);
+            p.increaseStock(quantity);
             System.out.println(quantity + " units added to " + p.getName());
         } 
         else 
@@ -53,7 +53,7 @@ public class Warehouse
             Product p = inventory.get(pId);
             if (p.getQuantity() >= quantity) 
             {
-                p.setQuantity(p.getQuantity() - quantity);
+                p.decreaseStock(quantity);
                 System.out.println(quantity + " units removed from " + p.getName());
 
                 if (p.getQuantity() < p.getMinQuantity()) 
@@ -139,4 +139,5 @@ public class Warehouse
     }
 
 }
+
 
