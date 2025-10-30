@@ -21,8 +21,15 @@ public class Warehouse
 
     public void add_Product(Product p) 
     {
-        inventory.put(p.getId(), p);
-        System.out.println(p.getName() + " added to warehouse.");
+        if (inventory.containsKey(p.getId())) 
+        {
+            System.out.println("Product ID " + p.getId() + " already exists! Cannot add duplicate.");
+        }
+    	else
+    	{
+	        inventory.put(p.getId(), p);
+	        System.out.println(p.getName() + " added to warehouse.");
+    	}
     }
 
     public void receive_Shipment(int pId, int quantity) 
@@ -132,3 +139,4 @@ public class Warehouse
     }
 
 }
+
