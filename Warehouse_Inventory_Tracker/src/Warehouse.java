@@ -109,53 +109,6 @@ public class Warehouse
         }
     }
     
-    public void saveToFile(String filename) 
-    {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) 
-        {
-            for (Product p : inventory.values()) 
-            {
-                bw.write(p.getId() + "," + p.getName() + "," + p.getQuantity() + "," + p.getMinQuantity());
-                bw.newLine();
-            }
-            System.out.println("Inventory saved to file.");
-        } 
-        catch (IOException e) 
-        {
-            System.out.println("Error saving inventory: " + e.getMessage());
-        }
-    }
-
-    public void loadFromFile(String filename) 
-    {
-        try 
-        {
-            Path path = Paths.get(filename);
-            if (Files.exists(path)) 
-            {
-                List<String> lines = Files.readAllLines(path);
-                for (String line : lines) 
-                {
-                    String[] data = line.split(",");
-                    int id = Integer.parseInt(data[0]);
-                    String name = data[1];
-                    int qty = Integer.parseInt(data[2]);
-                    int minQty = Integer.parseInt(data[3]);
-
-                    Product p = new Product(id, name, qty, minQty);
-                    inventory.put(id, p);
-                }
-                System.out.println("Inventory loaded from file.");
-            } 
-            else 
-            {
-                System.out.println("No previous inventory found. Starting new.");
-            }
-        } 
-        catch (IOException e) 
-        {
-            System.out.println("Error loading inventory: " + e.getMessage());
-        }
-    }
-
+   
 }
+
