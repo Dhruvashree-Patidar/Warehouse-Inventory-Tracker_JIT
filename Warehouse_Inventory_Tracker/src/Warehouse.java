@@ -10,18 +10,38 @@ import java.util.List;
 
 public class Warehouse 
 {
+	int wId;
+	String wName;
+	
 	private HashMap<Integer, Product> inventory;
 	private StockObserver observer;
 
-    public Warehouse(StockObserver observer) 
-    {
-        inventory = new HashMap<>();
-        this.observer=observer;
+	public Warehouse(int wId, String wName, StockObserver observer) 
+	{
+        this.wId = wId;
+        this.wName = wName;
+        this.observer = observer;
+        this.inventory = new HashMap<>();
     }
-
-    public void add_Product(Product p) 
+	
+    public int getwId() 
     {
-        if (inventory.containsKey(p.getId())) 
+		return wId;
+	}
+
+	public String getwName() 
+	{
+		return wName;
+	}
+	
+	public HashMap<Integer, Product> getInventory() {
+		return inventory;
+	}
+
+
+	public void add_Product(Product p) 
+    {
+    	if (inventory.containsKey(p.getId())) 
         {
             System.out.println("Product ID " + p.getId() + " already exists! Cannot add duplicate.");
         }
@@ -139,5 +159,3 @@ public class Warehouse
     }
 
 }
-
-
